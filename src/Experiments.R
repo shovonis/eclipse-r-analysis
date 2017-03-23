@@ -1,10 +1,10 @@
-files_20 <- read.table("/Users/zimmerth/Desktop/Promise Revisited/eclipse-metrics-files-2.0.csv", header=T, sep=";")
-files_21 <- read.table("/Users/zimmerth/Desktop/Promise Revisited/eclipse-metrics-files-2.1.csv", header=T, sep=";")
-files_30 <- read.table("/Users/zimmerth/Desktop/Promise Revisited/eclipse-metrics-files-3.0.csv", header=T, sep=";")
+files_20 <- read.table("resource/files-csv/eclipse-metrics-files-2.0.csv", header=T, sep=";")
+files_21 <- read.table("resource/files-csv/eclipse-metrics-files-2.1.csv", header=T, sep=";")
+files_30 <- read.table("resource/files-csv/eclipse-metrics-files-3.0.csv", header=T, sep=";")
 
-packages_20 <- read.table("/Users/zimmerth/Desktop/Promise Revisited/eclipse-metrics-packages-2.0.csv", header=T, sep=";")
-packages_21 <- read.table("/Users/zimmerth/Desktop/Promise Revisited/eclipse-metrics-packages-2.1.csv", header=T, sep=";")
-packages_30 <- read.table("/Users/zimmerth/Desktop/Promise Revisited/eclipse-metrics-packages-3.0.csv", header=T, sep=";")
+packages_20 <- read.table("resource/packages-csv/eclipse-metrics-packages-2.0.csv", header=T, sep=";")
+packages_21 <- read.table("resource/packages-csv/eclipse-metrics-packages-2.1.csv", header=T, sep=";")
+packages_30 <- read.table("resource/packages-csv/eclipse-metrics-packages-3.0.csv", header=T, sep=";")
 
 
 
