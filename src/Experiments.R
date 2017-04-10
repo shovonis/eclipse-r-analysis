@@ -6,8 +6,6 @@ packages_20 <- read.table("resource/packages-csv/eclipse-metrics-packages-2.0.cs
 packages_21 <- read.table("resource/packages-csv/eclipse-metrics-packages-2.1.csv", header=T, sep=";")
 packages_30 <- read.table("resource/packages-csv/eclipse-metrics-packages-3.0.csv", header=T, sep=";")
 
-
-
 nrow(files_20)
 nrow(files_21)
 nrow(files_30)
@@ -21,7 +19,6 @@ par(mar=c(5, 5, 2, 1) + 0.1)
 hist(packages_30$post, freq=T, breaks=100, xlim=c(0,70), axes=F, main="", xlab="Number of Post-Release Defects (per Package)", ylab="Percentage", col="darkgray")
 axis(1)
 axis(2, at=c(0,66.1,66.1*2,66.1*3,66.1*4,66.1*5,66.1*6), labels=c("0%","10%","20%","30%","40%","50%","60%"), las=1)
-
 
 
 pre.p <- rep (-1, 33)
