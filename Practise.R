@@ -132,3 +132,79 @@ writeBin(c(new.mtcars$cyl,new.mtcars$am,new.mtcars$gear), write.filename)
 # Close the file for writing so that it can be read by other program.
 close(write.filename)
 
+
+
+
+
+
+
+###Chart###
+#Pie 
+value <- c(45, 50, 75, 25, 68)
+label <- c("Dhaka", "Montreal", "London", "Texas", "Dellhi")
+
+#png(file="city.jpg")
+pie(value, label, main = "City Percentage")
+#dev.off()
+
+png(file="city.png")
+percentage <- round(100 * value/sum(value), 1)
+pie(value, percentage, col = rainbow(length(value)))
+legend("topright", label, cex = 1, fill = rainbow(length(value)))
+dev.off()
+
+#Barplot
+barplot(value, names.arg =  label, xlab = "City", ylab = "Humidity", col = c("black", "orange", "white"))
+matvalue <- matrix(c(2, 3, 4, 5, 9, 7, 9, 3, 5), nrow = 3, ncol = 3)
+barplot(matvalue, names.arg =  c("Dhaka", "Montreal", "Texas"), xlab = "City", ylab = "Humidity", col = c("black", "orange", "white"))
+  
+
+#BoxPlot
+input <- mtcars[,c("mpg", "cyl")]
+print(head(input))
+print(mtcars)
+
+boxplot(mpg~gear, data = mtcars, xlab="Gear", ylab="Miles per gallon")
+
+
+v <- mtcars[, "cyl"]
+hist(v, xlab = "Cylinder", xlim = c(4, 7), ylim = c(0, 15), breaks = 6)
+
+#Plot
+v <- c(7,12,28, 7, 3, 4, 5)
+y <- c("Sev", "Twlv",  "Twnty")
+plot(v,xlab ="String", ylab = "Valye" )
+
+mean(v, trim = 0.3, na.rm = TRUE)
+
+x <- c(12,7,3,4.2,18,2,54,-21,8,-5)
+median(x)
+unique(v)
+tabulate(7)
+
+help("tabulate")
+
+#Linear Regression
+x <- c(151, 174, 138, 186, 128, 136, 179, 163, 152, 131)
+y <- c(63, 81, 56, 91, 47, 57, 76, 72, 62, 48)
+relation <- lm(y~x)
+summary(relation)
+predict(relation, data.frame(x = 189))
+plot(y, x, abline(lm(x~y)), main = "Test", xlab = "Weight", ylab = "Height", pch=16, cex = 1.3)
+
+#Multiple Regression
+input <- mtcars[,c("mpg","disp","hp","wt")]
+m.relation <- lm(mpg~ disp+disp+hp+wt, input)
+print(m.relation)
+print(input)
+predict(m.relation, input, type="response")
+
+#Logistic Regression
+input <- mtcars[,c("am","cyl","hp","wt")]
+print(head(input))
+relation <- glm(formula = am ~ cyl + hp + wt, data = input, family = binomial)
+print(summary(relation))
+predict(relation, data.frame(cyl=6, hp=110, wt=2.62), type="response")
+
+help(print)
+
