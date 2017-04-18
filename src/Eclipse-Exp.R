@@ -1,4 +1,3 @@
-
 #Reading Eclipse bug data
 file_20 = read.table("resource/files-csv/eclipse-metrics-files-2.0.csv", header = TRUE, sep = ";")
 file_21 = read.table("resource/files-csv/eclipse-metrics-files-2.1.csv", header = TRUE, sep = ";")
@@ -100,7 +99,7 @@ pkg_classification_test <- function (train, test)
                    + VG_avg + VG_max + VG_sum, data=train, family = "binomial")
   
   test.prob <- predict(model.glm, test, type="response")
-  test.pred <- test.prob>=0.50
+  test.pred <- test.prob >= 0.50
   outcome <- table(factor(test$post>0, levels=c(F,T)), factor(test.pred, levels=c(F,T)))
   
   TN <- outcome[1,1]
@@ -127,5 +126,71 @@ pkg_classification_test(package_30, package_20)
 pkg_classification_test(package_30, package_21)
 pkg_classification_test(package_30, package_30)
 
+#Correlation on rank test for file
+file_ranking_test <- function (train, test) 
+{
+  model.lm <- lm(post ~ pre + ACD + FOUT_avg + FOUT_max + FOUT_sum
+                 + MLOC_avg + MLOC_max + MLOC_sum + NBD_avg + NBD_max
+                 + NBD_sum + NOF_avg + NOF_max + NOF_sum + NOI + NOM_avg
+                 + NOM_max + NOM_sum + NOT + NSF_avg + NSF_max + NSF_sum
+                 + NSM_avg + NSM_max + NSM_sum + PAR_avg + PAR_max + PAR_sum
+                 + TLOC + VG_avg + VG_max + VG_sum, data=train)
+  
+  test.pred <- predict(model.lm, test)
+  
+  r.squared <- summary(model.lm)$r.squared
+  pearson <- cor(test$post, test.pred, method="pearson")
+  spearman <- cor(test$post, test.pred, method="spearman")
+  pearson.p <- cor.test(test$post, test.pred, method="pearson")$p.value
+  spearman.p <- cor.test(test$post, test.pred, method="spearman", exact=FALSE)$p.value
+  
+  return (c("R-square"=r.squared, "Pearson" = pearson, "Spearman" = spearman,
+            "Significant Pearson"=pearson.p<0.01, "Significant Spearman" = spearman.p<0.01))
+}
 
+#Test File ranking
+file_ranking_test(file_20, file_20)
+file_ranking_test(file_20, file_21)
+file_ranking_test(file_20, file_30)
+file_ranking_test(file_21, file_20)
+file_ranking_test(file_21, file_21)
+file_ranking_test(file_21, file_30)
+file_ranking_test(file_30, file_20)
+file_ranking_test(file_30, file_21)
+file_ranking_test(file_30, file_30)
+
+#Correlation on rank test for package
+package_ranking_test <- function (train, test) 
+{
+  model.lm <- lm(post ~ pre + ACD_avg + ACD_max + ACD_sum + FOUT_avg
+                 + FOUT_max + FOUT_sum + MLOC_avg + MLOC_max + MLOC_sum
+                 + NBD_avg + NBD_max + NBD_sum + NOCU + NOF_avg + NOF_max
+                 + NOF_sum + NOI_avg + NOI_max + NOI_sum + NOM_avg + NOM_max
+                 + NOM_sum + NOT_avg + NOT_max + NOT_sum + NSF_avg + NSF_max
+                 + NSF_sum + NSM_avg + NSM_max + NSM_sum + PAR_avg + PAR_max
+                 + PAR_sum + TLOC_avg + TLOC_max + TLOC_sum + VG_avg
+                 + VG_max + VG_sum, data=train)
+  
+  test.pred <- predict(model.lm, test)
+  
+  r.squared <- summary(model.lm)$r.squared
+  pearson <- cor(test$post, test.pred, method="pearson")
+  spearman <- cor(test$post, test.pred, method="spearman")
+  pearson.p <- cor.test(test$post, test.pred, method="pearson")$p.value
+  spearman.p <- cor.test(test$post, test.pred, method="spearman", exact=FALSE)$p.value
+  
+  return (c("R-square"=r.squared, "Pearson" = pearson, "Spearman" = spearman,
+            "Significant Pearson"=pearson.p<0.01, "Significant Spearman" = spearman.p<0.01))
+}
+
+#Test Package Ranking
+package_ranking_test(package_20, package_20)
+package_ranking_test(package_20, package_21)
+package_ranking_test(package_20, package_30)
+package_ranking_test(package_21, package_20)
+package_ranking_test(package_21, package_21)
+package_ranking_test(package_21, package_30)
+package_ranking_test(package_30, package_20)
+package_ranking_test(package_30, package_21)
+package_ranking_test(package_30, package_30)
 

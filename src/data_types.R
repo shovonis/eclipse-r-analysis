@@ -59,3 +59,5 @@ dimnames(m) <- list(c("a", "b"), c("c", "d"))
 #name can also be declared explicitely
 colnames(m) <- c("h", "f")
 rownames(m) <- c("x", "z")
+
+
