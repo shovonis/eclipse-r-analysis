@@ -43,7 +43,7 @@ cbind(cor(packages_30[,3:44], packages_30$pre, method="spearman"), cor(packages_
 
 test_classification <- function (train, test) 
 {
-	model.glm <- glm((post>0) ~ pre + ACD + FOUT_avg + FOUT_max + FOUT_sum + MLOC_avg + MLOC_max + MLOC_sum + NBD_avg + NBD_max + NBD_sum + NOF_avg + NOF_max + NOF_sum + NOI + NOM_avg + NOM_max + NOM_sum + NOT + NSF_avg + NSF_max + NSF_sum + NSM_avg + NSM_max + NSM_sum + PAR_avg + PAR_max + PAR_sum + + + TLOC + VG_avg + VG_max + VG_sum, data=train, family = "binomial")
+	model.glm <- glm((post>0) ~ pre + ACD + FOUT_avg + FOUT_max + FOUT_sum + MLOC_avg + MLOC_max + MLOC_sum + NBD_avg + NBD_max + NBD_sum + NOF_avg + NOF_max + NOF_sum + NOI + NOM_avg + NOM_max + NOM_sum + NOT + NSF_avg + NSF_max + NSF_sum + NSM_avg + NSM_max + NSM_sum + PAR_avg + PAR_max + PAR_sum + TLOC + VG_avg + VG_max + VG_sum, data=train, family = "binomial")
 	test.prob <- predict(model.glm, test, type="response")
 	test.pred <- test.prob>=0.50
 	
