@@ -60,4 +60,13 @@ dimnames(m) <- list(c("a", "b"), c("c", "d"))
 colnames(m) <- c("h", "f")
 rownames(m) <- c("x", "z")
 
+#Time 
+x <- Sys.time()
+print(x)
+class(x)
+p <- as.POSIXlt(x)
+print(p)
 
+#strptime() function converts date string to POSIXlt time
+date_string <- c("January 10, 2012 10:40", "December 9, 2011 9:10")
+strptime(date_string, "%B %d, %Y %H:%M")

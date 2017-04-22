@@ -57,10 +57,14 @@ file_classification_test <- function (train, test) {
                    + NOI + NOM_avg + NOM_max + NOM_sum + NOT + NSF_avg + NSF_max + NSF_sum + NSM_avg
                    + NSM_max + NSM_sum + PAR_avg + PAR_max + PAR_sum + + + TLOC + VG_avg
                    + VG_max + VG_sum, data=train, family = "binomial")
+  summary(model.glm)
   
   test.prob <- predict(model.glm, test, type="response")
+  print( test.prob)
   test.pred <- test.prob >= 0.50
+  print( test.pred)
   outcome <- table(factor(test$post>0, levels=c(F,T)), factor(test.pred, levels=c(F,T)))
+  print(outcome)
   
   TN <- outcome[1,1]
   FN <- outcome[2,1]
@@ -180,7 +184,7 @@ package_ranking_test <- function (train, test)
   spearman.p <- cor.test(test$post, test.pred, method="spearman", exact=FALSE)$p.value
   
   return (c("R-square"=r.squared, "Pearson" = pearson, "Spearman" = spearman,
-            "Significant Pearson"=pearson.p<0.01, "Significant Spearman" = spearman.p<0.01))
+            "Significant Pearson"=pearson.p<0.01, "Significant Spearman" = spearman.p < 0.01))
 }
 
 #Test Package Ranking
